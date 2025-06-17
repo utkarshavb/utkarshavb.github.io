@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Identified cancers among skin lesions cropped from 3D total body photographs along with metadata">
 
 <title>Skin Cancer Detection with 3D-TBP – Utkarsh Singh</title>
 <style>
@@ -39,6 +40,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-026c981404a76933cdc0d41334011a80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,7 +71,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -91,10 +93,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../blog.html"> 
-<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
@@ -156,7 +154,6 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Skin Cancer Detection with 3D-TBP</h1>
-<p class="subtitle lead">Identified cancers among skin lesions cropped from 3D total body photographs along with metadata</p>
   <div class="quarto-categories">
     <div class="quarto-category">Image Classification</div>
     <div class="quarto-category">Multimodal</div>
@@ -164,6 +161,11 @@ ul.task-list li input[type="checkbox"] {
   </div>
   </div>
 
+<div>
+  <div class="description">
+    Identified cancers among skin lesions cropped from 3D total body photographs along with metadata
+  </div>
+</div>
 
 
 <div class="quarto-title-meta column-page-left">
@@ -178,7 +180,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The International Skin Imaging Collaboration (ISIC) is an international academia and industry partnership designed to reduce skin cancer morbidity and mortality through the development and use of digital skin imaging applications. Beginning in 2016, ISIC has sponsored Grand Challenges for the computer science community in association with leading computer vision conferences. Over the years, these challenges have grown in scale, complexity, and participation. <a href="https://www.kaggle.com/competitions/isic-2024-challenge">The 2024 competition page.</a></p>
+<p><a href="https://github.com/utkarshavb/Skin-Cancer-Detection-ISIC-Challenge-2024" class="btn" target="_blank"><i class="fa-brands fa-github" aria-label="github"></i> Source Code</a> <a href="https://www.kaggle.com/competitions/isic-2024-challenge" class="btn" target="_blank"><i class="fa-brands fa-kaggle" aria-label="kaggle"></i> Competition page</a></p>
+<p>The International Skin Imaging Collaboration (ISIC) is an international academia and industry partnership designed to reduce skin cancer morbidity and mortality through the development and use of digital skin imaging applications. Beginning in 2016, ISIC has sponsored Grand Challenges for the computer science community in association with leading computer vision conferences. Over the years, these challenges have grown in scale, complexity, and participation.</p>
 <section id="problem-statement" class="level2">
 <h2 class="anchored" data-anchor-id="problem-statement">Problem Statement</h2>
 <p>The task is to develop image-based algorithms to identify histologically confirmed skin cancer cases with single-lesion crops from 3D total body photos (TBP). The image quality resembles close-up smartphone photos, which are regularly submitted for telehealth purposes. The binary classification algorithm could be used in settings without access to specialized care and improve triage for early skin cancer detection.</p>

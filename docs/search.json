@@ -4,7 +4,7 @@
     "href": "projects/entity_extraction/index.html",
     "title": "Entity extraction from retail images",
     "section": "",
-    "text": "This was a 3 day hack-a-thon organised by Amazon India as part of their annual Amazon ML Challenge, an inter-college team competition."
+    "text": "Source Code  Competition page\nThis was a 3 day hack-a-thon organised by Amazon India as part of their annual Amazon ML Challenge, an inter-college team competition."
   },
   {
     "objectID": "projects/entity_extraction/index.html#problem-statement",
@@ -32,7 +32,7 @@
     "href": "projects/entity_extraction/index.html#evaluation-criteria",
     "title": "Entity extraction from retail images",
     "section": "Evaluation Criteria",
-    "text": "Evaluation Criteria\nSubmissions will be evaluated based on F1 score\nLet GT = Ground truth value for a sample and OUT be output prediction from the model for a sample. Then we classify the predictions into one of the 4 classes with the following logic: 1. True Positives - If OUT != “” and GT != “” and OUT == GT 2. False Positives - If OUT != “” and GT != “” and OUT != GT 3. False Positives - If OUT != “” and GT == “” 4. False Negatives - If OUT == “” and GT != “” 5. True Negatives - If OUT == “” and GT == “”\nThen, F1 score = 2(Precision)(Recall)/(Precision + Recall) where: - Precision = True Positives/(True Positives + False Positives) - Recall = True Positives/(True Positives + False Negatives)"
+    "text": "Evaluation Criteria\nSubmissions will be evaluated based on F1 score\nLet GT = Ground truth value for a sample and OUT be output prediction from the model for a sample. Then we classify the predictions into one of the 4 classes with the following logic:\n\nTrue Positives - If OUT != “” and GT != “” and OUT == GT\nFalse Positives - If OUT != “” and GT != “” and OUT != GT\nFalse Positives - If OUT != “” and GT == “”\nFalse Negatives - If OUT == “” and GT != “”\nTrue Negatives - If OUT == “” and GT == “”\n\nThen, F1 score = 2(Precision)(Recall)/(Precision + Recall) where: - Precision = True Positives/(True Positives + False Positives) - Recall = True Positives/(True Positives + False Negatives)"
   },
   {
     "objectID": "projects/entity_extraction/index.html#approach",
@@ -60,21 +60,21 @@
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "Hi, I am a Deep Learning practitioner, currently working as a Data Scientist at Turing. I am based in Thane, Maharashtra. I am an avid fantasy fiction reader and I like playing chess. I have been practicing deep learning for almost two years now and I am excited to grow in this field!\nI am a 2025 graduate from Indian Institute of Technology (BHU), Varanasi, where I completed my Bachelor of Technology in Mechanical Engineering. This is where I first got into machine learning and deep learning, starting off with Andrew Ng’s Machine Learning Specialization course on Coursera, and eventually doing the fast.ai course: Practical Deep Learning for Coders.\nWhile at IIT Varanasi, I did a summer internship as a Data Scientist at Voiceback Analytics, where I led promotion analytics for Mumbai International Airport’s duty-free stores. I developed a pipeline to extract transactional data and trained machine learning models to identify the most effective promotions. Apart from the internship, I did various projects to cement my practical understanding. Check out some of my notable side projects here.\nI am always open to connecting and collaborating, feel free to reach out:"
+    "text": "Hi, I am a Deep Learning practitioner, currently working as a Data Scientist at Turing. I am based in Thane, Maharashtra. I am an avid fantasy fiction reader and I like playing chess. I have been practicing deep learning for almost two years now and I am excited to grow in this field!\nI am a 2025 graduate from Indian Institute of Technology (BHU), Varanasi, where I completed my B.Tech in Mechanical Engineering. This is where I first got into machine learning and deep learning, starting off with Andrew Ng’s Machine Learning Specialization course on Coursera, and eventually doing the fast.ai course: Practical Deep Learning for Coders.\nWhile at IIT Varanasi, I did a summer internship as a Data Scientist at Voiceback Analytics, where I led promotion analytics for Mumbai International Airport’s duty-free stores. I developed a pipeline to extract transactional data and trained machine learning models to identify the most effective promotions. Apart from the internship, I did various projects to cement my practical understanding. Check out some of my notable side projects here.\nI am always open to connecting and collaborating, feel free to reach out:\n E-mail  Github  Linkedin  Twitter"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Hi, I am Utkarsh!",
     "section": "",
-    "text": "Currently participating in the CMI - Detect Behavior with Sensor Data kaggle code competition\n\n\n\n\n\n\n\nProjects\nSome of my more notable side projects\n\n\n\n\n\n\n\n\nEntity extraction from retail images\n\n\n\nOCR\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSkin Cancer Detection with 3D-TBP\n\n\n\nImage Classification\n\nMultimodal\n\nEnsembling\n\n\n\n\n\n\n\n\n\nNo matching items\n\n\n\nLet’s get in touch!\nI am always open to connecting and collaborating, feel free to reach out.\n\n  \n    \n       \n  \n    \n     E-mail\n  \n  \n    \n     Github\n  \n  \n    \n     Linkedin\n  \n  \n    \n     Twitter\n  \n\n      \n\n    \n  \n\n\nTo know more about me and my journey, visit the about page."
+    "text": "Currently participating in the CMI - Detect Behavior with Sensor Data kaggle code competition\n\n\n\n\n\n\n\nProjects\nSome of my more notable side projects\n\n\n\n\n\n\n\n\n\n\nEntity extraction from retail images\n\n\n\nOptical Character Recognition\n\nRegex Matching\n\n\n\nApplied machine learning models to extract precise product information directly from retail images\n\n\n\n\n\n\n\n\n\n\n\n\nSkin Cancer Detection with 3D-TBP\n\n\n\nImage Classification\n\nMultimodal\n\nEnsembling\n\n\n\nIdentified cancers among skin lesions cropped from 3D total body photographs along with metadata\n\n\n\n\n\nNo matching items\n\n\n\nLet’s get in touch!\nI am always open to connecting and collaborating, feel free to reach out.\n E-mail  Github  Linkedin  Twitter\n\nTo know more about me and my journey, visit the about page."
   },
   {
     "objectID": "projects/skin_cancer_detection/index.html",
     "href": "projects/skin_cancer_detection/index.html",
     "title": "Skin Cancer Detection with 3D-TBP",
     "section": "",
-    "text": "The International Skin Imaging Collaboration (ISIC) is an international academia and industry partnership designed to reduce skin cancer morbidity and mortality through the development and use of digital skin imaging applications. Beginning in 2016, ISIC has sponsored Grand Challenges for the computer science community in association with leading computer vision conferences. Over the years, these challenges have grown in scale, complexity, and participation. The 2024 competition page."
+    "text": "Source Code  Competition page\nThe International Skin Imaging Collaboration (ISIC) is an international academia and industry partnership designed to reduce skin cancer morbidity and mortality through the development and use of digital skin imaging applications. Beginning in 2016, ISIC has sponsored Grand Challenges for the computer science community in association with leading computer vision conferences. Over the years, these challenges have grown in scale, complexity, and participation."
   },
   {
     "objectID": "projects/skin_cancer_detection/index.html#problem-statement",

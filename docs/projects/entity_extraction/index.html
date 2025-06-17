@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Applied machine learning models to extract precise product information directly from retail images">
 
 <title>Entity extraction from retail images – Utkarsh Singh</title>
 <style>
@@ -39,6 +40,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-026c981404a76933cdc0d41334011a80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,7 +71,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -91,10 +93,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../blog.html"> 
-<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
@@ -157,12 +155,17 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Entity extraction from retail images</h1>
-<p class="subtitle lead">Applied machine learning models to extract precise product information directly from retail images</p>
   <div class="quarto-categories">
-    <div class="quarto-category">OCR</div>
+    <div class="quarto-category">Optical Character Recognition</div>
+    <div class="quarto-category">Regex Matching</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    Applied machine learning models to extract precise product information directly from retail images
+  </div>
+</div>
 
 
 <div class="quarto-title-meta column-page-left">
@@ -177,6 +180,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p><a href="https://github.com/utkarshavb/Entity-Extraction-from-Retail-Images" class="btn" target="_blank"><i class="fa-brands fa-github" aria-label="github"></i> Source Code</a> <a href="https://unstop.com/hackathons/amazon-ml-challenge-amazon-1100713" class="btn" target="_blank"><i class="fa-solid fa-laptop-code" aria-label="laptop-code"></i> Competition page</a></p>
 <p>This was a 3 day hack-a-thon organised by Amazon India as part of their annual Amazon ML Challenge, an inter-college team competition.</p>
 <section id="problem-statement" class="level2">
 <h2 class="anchored" data-anchor-id="problem-statement">Problem Statement</h2>
@@ -224,7 +228,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="evaluation-criteria" class="level2">
 <h2 class="anchored" data-anchor-id="evaluation-criteria">Evaluation Criteria</h2>
 <p>Submissions will be evaluated based on F1 score</p>
-<p>Let GT = Ground truth value for a sample and OUT be output prediction from the model for a sample. Then we classify the predictions into one of the 4 classes with the following logic: 1. True Positives - If OUT != “” and GT != “” and OUT == GT 2. False Positives - If OUT != “” and GT != “” and OUT != GT 3. False Positives - If OUT != “” and GT == “” 4. False Negatives - If OUT == “” and GT != “” 5. True Negatives - If OUT == “” and GT == “”</p>
+<p>Let GT = Ground truth value for a sample and OUT be output prediction from the model for a sample. Then we classify the predictions into one of the 4 classes with the following logic:</p>
+<ol type="1">
+<li>True Positives - If OUT != “” and GT != “” and OUT == GT</li>
+<li>False Positives - If OUT != “” and GT != “” and OUT != GT</li>
+<li>False Positives - If OUT != “” and GT == “”</li>
+<li>False Negatives - If OUT == “” and GT != “”</li>
+<li>True Negatives - If OUT == “” and GT == “”</li>
+</ol>
 <p>Then, F1 score = 2(Precision)(Recall)/(Precision + Recall) where: - Precision = True Positives/(True Positives + False Positives) - Recall = True Positives/(True Positives + False Negatives)</p>
 </section>
 <section id="approach" class="level2">

@@ -1,1 +1,23 @@
-/* css styles */
+$light-green: #D1D9CE;
+$medium-green: #98A08D;
+$dark-green: #757B6D;
+$cream: #FDFBF7;
+$dark-gray: #5A5856;
+$medium-gray: #64605f;
+$violet: #846075;
+$terracotta: #BD6E53; 
+$terracotta-dark: #a2604a;
+
+// btn styling
+.btn {
+  color: $medium-green;
+  background-color: $cream;
+  border-color: $dark-gray;
+}
+
+// button hover styling
+.btn:hover {
+  color: $cream;
+  background-color: $terracotta;
+  border-color: $dark-gray;
+}
