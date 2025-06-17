@@ -1,0 +1,23 @@
+[
+  {
+    "listing": "/pages/blog.html",
+    "items": []
+  },
+  {
+    "listing": "/p/blog.html",
+    "items": []
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/blogs/training-nns.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/projects/entity_extraction/index.html",
+      "/projects/skin_cancer_detection/index.html"
+    ]
+  }
+]

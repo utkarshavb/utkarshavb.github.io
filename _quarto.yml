@@ -1,0 +1,39 @@
+project:
+  output-dir: docs
+  type: website
+
+website:
+  title: "Utkarsh Singh"
+  navbar:
+    search: true
+    pinned: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: blog.qmd
+        text: Blog
+      - href: about.qmd
+        text: About
+      - href: assets/Resume.pdf
+        text: Resume
+    right:
+      - href: https://github.com/utkarshavb
+        icon: "github"
+      - href: https://linkedin.com/in/utkarsh-avb-singh
+        icon: "linkedin"
+      - href: https://x.com/utkarshavb
+        icon: "twitter"
+      - href: mailto::utkarsh.avb.singh@gmail.com
+        icon: "envelope-fill"
+  page-footer:
+    background: light
+    center: © 2025 Utkarsh Singh. This website is developed with [Github](https://utkarshavb/utkarshavb.github.io) and [Quarto](https://quarto.org).
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+    page-layout: full

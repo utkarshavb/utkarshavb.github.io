@@ -1,0 +1,268 @@
+[
+  {
+    "objectID": "blogs/training-nns.html#dumb-baseline",
+    "href": "blogs/training-nns.html#dumb-baseline",
+    "title": "Recipe for training neural networks",
+    "section": "Dumb baseline",
+    "text": "Dumb baseline\n\nn_classes = len(categories.vocab)\n1/n_classes\n\n0.02702702702702703"
+  },
+  {
+    "objectID": "blogs/training-nns.html#input-independent-baseline",
+    "href": "blogs/training-nns.html#input-independent-baseline",
+    "title": "Recipe for training neural networks",
+    "section": "Input independent baseline",
+    "text": "Input independent baseline\n\nclass ConvBlock(nn.Sequential):\n    def __init__(self, ni, nf, stride=2):\n        super().__init__(nn.Conv2d(ni, nf, 3, stride=stride), nn.ReLU())\n\n\nclass CNN(nn.Sequential):\n    def __init__(self, n_classes, channels=[3,16,32,64,128,256]):\n        cnn_layers = [ConvBlock(ni, nf) for ni, nf in zip(channels, channels[1:])]\n        pooling = nn.Sequential(nn.AdaptiveAvgPool2d(1), nn.Flatten())\n        super().__init__(\n            *cnn_layers, pooling,\n            nn.Linear(channels[-1], n_classes)\n        )\n\n\nmodel = CNN(n_classes)\nmodel\n\nCNN(\n  (0): ConvBlock(\n    (0): Conv2d(3, 16, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (1): ConvBlock(\n    (0): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (2): ConvBlock(\n    (0): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (3): ConvBlock(\n    (0): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (4): ConvBlock(\n    (0): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (5): Sequential(\n    (0): AdaptiveAvgPool2d(output_size=1)\n    (1): Flatten(start_dim=1, end_dim=-1)\n  )\n  (6): Linear(in_features=256, out_features=37, bias=True)\n)\n\n\n\ndef set_zero(self):\n    imgs = self.xb[0] # `self.xb` returns a tuple\n    input = torch.zeros(imgs.size(), device=imgs.device)\n    self.learn.xb = (input,) # `self.xb` is read only\n\n\ndls = get_dls(bs=128, resize=224)\ncbs = Callback(after_batch=set_zero)\nlearn = Learner(dls, model, loss_func=nn.CrossEntropyLoss(), opt_func=SGD, metrics=accuracy, cbs=cbs)\n\n\nlearn.dls.show_batch(max_n=2)\n\n\nlearn.fit(n_epoch=8, lr=0.01)\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n3.611310\n3.613421\n0.021651\n00:21\n\n\n1\n3.611212\n3.613468\n0.021651\n00:20\n\n\n2\n3.611135\n3.613516\n0.021651\n00:20\n\n\n3\n3.611322\n3.613566\n0.021651\n00:21\n\n\n4\n3.611256\n3.613614\n0.021651\n00:20\n\n\n5\n3.611201\n3.613663\n0.021651\n00:21\n\n\n6\n3.611113\n3.613711\n0.021651\n00:21\n\n\n7\n3.610951\n3.613765\n0.021651\n00:20"
+  },
+  {
+    "objectID": "blogs/training-nns.html#vanilla-training",
+    "href": "blogs/training-nns.html#vanilla-training",
+    "title": "Recipe for training neural networks",
+    "section": "Vanilla training",
+    "text": "Vanilla training\n\ndef train(n_epoch, lr, bs=128, resize=224, channels=[3,16,32,64,128,256]):\n    dls = get_dls(bs, resize)\n    model = CNN(n_classes, channels)\n    learn = Learner(dls, model, loss_func=nn.CrossEntropyLoss(), opt_func=SGD, metrics=accuracy)\n    return learn.fit(n_epoch=n_epoch, lr=lr)\n\n\nlearn = train(10, 0.02, bs=64)\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n3.611866\n3.611458\n0.026387\n00:20\n\n\n1\n3.612259\n3.611712\n0.026387\n00:21\n\n\n2\n3.612073\n3.611971\n0.026387\n00:20\n\n\n3\n3.611733\n3.612235\n0.026387\n00:20\n\n\n4\n3.611475\n3.612487\n0.026387\n00:20\n\n\n5\n3.611220\n3.612726\n0.026387\n00:20\n\n\n6\n3.611147\n3.612953\n0.021651\n00:20\n\n\n7\n3.610964\n3.613166\n0.021651\n00:20\n\n\n8\n3.611046\n3.613397\n0.021651\n00:20\n\n\n9\n3.611160\n3.613591\n0.021651\n00:20\n\n\n\n\n\n\nlearn = train(15, 0.2, bs=256)\n\n\ndls = get_dls(256, augs=[Resize(224)])\nlearn = Learner(dls, model, loss_func=nn.CrossEntropyLoss(), opt_func=SGD, metrics=accuracy)"
+  },
+  {
+    "objectID": "blogs/training-nns.html#trying-to-overfit",
+    "href": "blogs/training-nns.html#trying-to-overfit",
+    "title": "Recipe for training neural networks",
+    "section": "Trying to overfit",
+    "text": "Trying to overfit"
+  },
+  {
+    "objectID": "blogs/training-nns.html#weight-initialization",
+    "href": "blogs/training-nns.html#weight-initialization",
+    "title": "Recipe for training neural networks",
+    "section": "Weight initialization",
+    "text": "Weight initialization"
+  },
+  {
+    "objectID": "blogs/training-nns.html#normalization",
+    "href": "blogs/training-nns.html#normalization",
+    "title": "Recipe for training neural networks",
+    "section": "Normalization",
+    "text": "Normalization"
+  },
+  {
+    "objectID": "blogs/training-nns.html#skip-connections",
+    "href": "blogs/training-nns.html#skip-connections",
+    "title": "Recipe for training neural networks",
+    "section": "Skip connections",
+    "text": "Skip connections"
+  },
+  {
+    "objectID": "pages/blog.html",
+    "href": "pages/blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "pages/about.html",
+    "href": "pages/about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "About Me\nHi, I am a budding Deep Learning Practitioner.\nI am a recent graduate from the Indian Institute of Technology (BHU), Varanasi, where I completed my Bachelor of Technology in Mechanical Engineering with a commendable CGPA of 8.08. My academic journey began at Seven Square Academy, where I scored 95% in Class X, and then at Pace Junior Science College, where I achieved 88.5% in Class XII. I have further enriched my knowledge through textbooks on machine learning, such as Deep Learning for Coders (Jeremy Howard and Sylvain Gugger) and Natural Language Processing with Transformers. I have also done specialized online courses such as Generative AI with LLMs (AWS), Practical Deep Learning for Coders (fast.ai), and the Deep Learning and Machine Learning specializations by Andrew Ng. These certifications have provided me with a strong foundation in data science, machine learning, and artificial intelligence.\nI began my professional journey as a Data Science Intern at Voiceback Analytics, where I led promotion analytics for Mumbai International Airport’s duty-free stores. I developed a pipeline to extract transactional data and trained machine learning models to identify the most effective promotions, contributing to $960M in sales with a highly accurate MAPE of 0.13.\nMy project experience is diverse and impactful. I participated in the ISIC Challenge 2024, where I worked on skin cancer detection using 3D total body photographs. I fine-tuned ResNet-18 models and used ensemble methods to improve model performance, achieving a significant boost in partial AUC-ROC. I also competed in the Amazon ML Challenge 2024, where I built an OCR pipeline for entity extraction from retail images and secured a top 500 ranking among 75,000+ participants. Additionally, I developed a natural language inference system using XLM-RoBERTa and created an AI-powered campus assistance chatbot using LangChain, HuggingFace, and FAISS.\nI have held leadership roles in the Student Alumni Interaction Cell (SAIC) at IIT (BHU) since January 2022, currently serving as a Senior Advisor. In this capacity, I managed the mentorship program, processed data for 600+ alumni mentors supporting 750 students, and led initiatives that boosted alumni portal registrations among 1000+ graduating students. I also coordinated the EV Ecosystem Conclave, a large-scale event organized in collaboration with AIBA and PanIIT Alumni, which hosted over 450 participants. My experience in these roles has honed my leadership, data management, and event coordination skills.\nBeyond academics and professional work, I am passionate about chess and have achieved notable success in both intra-college and inter-college tournaments. I secured first place in the Freshers on Board chess tournament at IIT (BHU) and represented my institute in Spardha’23, where I placed third among 15+ colleges. Chess is more than a hobby for me—it’s a way to sharpen strategic thinking and problem-solving skills. I am also an avid reader, particularly of fantasy fiction. Exploring imaginative worlds and complex narratives is a source of inspiration and relaxation for me."
+  },
+  {
+    "objectID": "blogs/training_nns.html",
+    "href": "blogs/training_nns.html",
+    "title": "The data",
+    "section": "",
+    "text": "from fastai.vision.all import *\npath = untar_data(URLs.PETS)\npath.ls()\n\n\n\n\n\n\n    \n      \n      100.00% [811712512/811706944 11:03&lt;00:00]\n    \n    \n\n\n(#2) [Path('/home/awesomeville/.fastai/data/oxford-iiit-pet/annotations'),Path('/home/awesomeville/.fastai/data/oxford-iiit-pet/images')]\n(path/'images').ls()[0]\n\nPath('/home/awesomeville/.fastai/data/oxford-iiit-pet/images/Birman_115.jpg')\nimg_path = (path/'images').ls()[0]\nPILImage.create(img_path)\nimg_paths = [path for path in (path/'images').ls() if path.suffix=='.jpg']\nprint(len(img_paths))\n\nsizes = pd.Series(PILImage.create(img_path).shape for img_path in img_paths)\nsizes.value_counts()\n\n7390\n\n\n(375, 500)    1425\n(333, 500)    1072\n(500, 375)     511\n(500, 333)     509\n(225, 300)     266\n              ... \n(300, 221)       1\n(180, 272)       1\n(398, 400)       1\n(480, 383)       1\n(211, 300)       1\nName: count, Length: 1022, dtype: int64\ndef get_label(img_path):\n    img_name = img_path.name\n    x = img_name.split('.')[0]\n    return '_'.join(x.split('_')[:-1])\nlabels = pd.Series(get_label(img_path) for img_path in img_paths)\nlabels.value_counts()\n\nBirman                        200\nleonberger                    200\nBombay                        200\njapanese_chin                 200\nsaint_bernard                 200\nRagdoll                       200\nPersian                       200\nenglish_setter                200\nhavanese                      200\ngreat_pyrenees                200\nBengal                        200\nbasset_hound                  200\nEgyptian_Mau                  200\namerican_pit_bull_terrier     200\namerican_bulldog              200\nenglish_cocker_spaniel        200\nnewfoundland                  200\nshiba_inu                     200\nsamoyed                       200\nminiature_pinscher            200\ngerman_shorthaired            200\nBritish_Shorthair             200\npomeranian                    200\nyorkshire_terrier             200\nchihuahua                     200\nSphynx                        200\nbeagle                        200\nkeeshond                      200\nboxer                         200\nMaine_Coon                    200\npug                           200\nRussian_Blue                  200\nAbyssinian                    200\nwheaten_terrier               200\nSiamese                       200\nscottish_terrier              199\nstaffordshire_bull_terrier    191\nName: count, dtype: int64\nx_tfms = [PILImage.create, Resize(350), ToTensor()]\ncategories = Categorize(vocab=labels.unique())\ny_tfms = [Transform(get_label), categories]\ndsets = Datasets(img_paths, [x_tfms, y_tfms])\ndls = dsets.dataloaders(bs=32)\ndls.show_batch(max_n=20, ncols=5)\ndsets = dsets = Datasets(img_paths, [x_tfms, y_tfms], splits=RandomSplitter()(img_paths))\n\ndef get_dls(bs, augs):\n    return dsets.dataloaders(bs=bs, after_batch=[IntToFloatTensor(), *augs])"
+  },
+  {
+    "objectID": "blogs/training_nns.html#dumb-baseline",
+    "href": "blogs/training_nns.html#dumb-baseline",
+    "title": "The data",
+    "section": "Dumb baseline",
+    "text": "Dumb baseline\n\nn_classes = len(categories.vocab)\n1/n_classes\n\n0.02702702702702703"
+  },
+  {
+    "objectID": "blogs/training_nns.html#input-independent-baseline",
+    "href": "blogs/training_nns.html#input-independent-baseline",
+    "title": "The data",
+    "section": "Input independent baseline",
+    "text": "Input independent baseline\n\nclass ConvBlock(nn.Sequential):\n    def __init__(self, ni, nf, stride=2):\n        super().__init__(nn.Conv2d(ni, nf, 3, stride=stride), nn.ReLU())\n\n\nclass CNN(nn.Sequential):\n    def __init__(self, n_classes, channels=[3,16,32,64,128,256]):\n        cnn_layers = [ConvBlock(ni, nf) for ni, nf in zip(channels, channels[1:])]\n        pooling = nn.Sequential(nn.AdaptiveAvgPool2d(1), nn.Flatten())\n        super().__init__(\n            *cnn_layers, pooling,\n            nn.Linear(channels[-1], n_classes)\n        )\n\n\nmodel = CNN(len(categories.vocab))\nmodel\n\nCNN(\n  (0): ConvBlock(\n    (0): Conv2d(3, 16, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (1): ConvBlock(\n    (0): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (2): ConvBlock(\n    (0): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (3): ConvBlock(\n    (0): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (4): ConvBlock(\n    (0): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2))\n    (1): ReLU()\n  )\n  (5): Sequential(\n    (0): AdaptiveAvgPool2d(output_size=1)\n    (1): Flatten(start_dim=1, end_dim=-1)\n  )\n  (6): Linear(in_features=256, out_features=37, bias=True)\n)\n\n\n\ndls = get_dls(32, augs=[Resize(112)])\nlearn = Learner(dls, model, loss_func=nn.CrossEntropyLoss(), opt_func=SGD, metrics=accuracy)\n\n\nlearn.fit(n_epoch=10, lr=1e-2)\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n3.213014\n3.190797\n0.132612\n01:16\n\n\n1\n3.206754\n3.148360\n0.140731\n01:14\n\n\n2\n3.180439\n3.131312\n0.144790\n01:14\n\n\n3\n3.182761\n3.117996\n0.156292\n01:15\n\n\n4\n3.151093\n3.126581\n0.147497\n01:20\n\n\n5\n3.141126\n3.100927\n0.146143\n01:16\n\n\n6\n3.129682\n3.087976\n0.153586\n01:14\n\n\n7\n3.116964\n3.111846\n0.148173\n01:13\n\n\n8\n3.116793\n3.077790\n0.154939\n01:14\n\n\n9\n3.121727\n3.063863\n0.152909\n01:15"
+  },
+  {
+    "objectID": "blogs/training_nns.html#vanilla-training",
+    "href": "blogs/training_nns.html#vanilla-training",
+    "title": "The data",
+    "section": "Vanilla training",
+    "text": "Vanilla training"
+  },
+  {
+    "objectID": "blogs/training_nns.html#trying-to-overfit",
+    "href": "blogs/training_nns.html#trying-to-overfit",
+    "title": "The data",
+    "section": "Trying to overfit",
+    "text": "Trying to overfit"
+  },
+  {
+    "objectID": "blogs/training_nns.html#weight-initialization",
+    "href": "blogs/training_nns.html#weight-initialization",
+    "title": "The data",
+    "section": "Weight initialization",
+    "text": "Weight initialization"
+  },
+  {
+    "objectID": "blogs/training_nns.html#normalization",
+    "href": "blogs/training_nns.html#normalization",
+    "title": "The data",
+    "section": "Normalization",
+    "text": "Normalization"
+  },
+  {
+    "objectID": "blogs/training_nns.html#skip-connections",
+    "href": "blogs/training_nns.html#skip-connections",
+    "title": "The data",
+    "section": "Skip connections",
+    "text": "Skip connections"
+  },
+  {
+    "objectID": "p/blog.html",
+    "href": "p/blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "p/about.html",
+    "href": "p/about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "About Me\nHi, I am a budding Deep Learning Practitioner.\nI am a recent graduate from the Indian Institute of Technology (BHU), Varanasi, where I completed my Bachelor of Technology in Mechanical Engineering with a commendable CGPA of 8.08. My academic journey began at Seven Square Academy, where I scored 95% in Class X, and then at Pace Junior Science College, where I achieved 88.5% in Class XII. I have further enriched my knowledge through textbooks on machine learning, such as Deep Learning for Coders (Jeremy Howard and Sylvain Gugger) and Natural Language Processing with Transformers. I have also done specialized online courses such as Generative AI with LLMs (AWS), Practical Deep Learning for Coders (fast.ai), and the Deep Learning and Machine Learning specializations by Andrew Ng. These certifications have provided me with a strong foundation in data science, machine learning, and artificial intelligence.\nI began my professional journey as a Data Science Intern at Voiceback Analytics, where I led promotion analytics for Mumbai International Airport’s duty-free stores. I developed a pipeline to extract transactional data and trained machine learning models to identify the most effective promotions, contributing to $960M in sales with a highly accurate MAPE of 0.13.\nMy project experience is diverse and impactful. I participated in the ISIC Challenge 2024, where I worked on skin cancer detection using 3D total body photographs. I fine-tuned ResNet-18 models and used ensemble methods to improve model performance, achieving a significant boost in partial AUC-ROC. I also competed in the Amazon ML Challenge 2024, where I built an OCR pipeline for entity extraction from retail images and secured a top 500 ranking among 75,000+ participants. Additionally, I developed a natural language inference system using XLM-RoBERTa and created an AI-powered campus assistance chatbot using LangChain, HuggingFace, and FAISS.\nI have held leadership roles in the Student Alumni Interaction Cell (SAIC) at IIT (BHU) since January 2022, currently serving as a Senior Advisor. In this capacity, I managed the mentorship program, processed data for 600+ alumni mentors supporting 750 students, and led initiatives that boosted alumni portal registrations among 1000+ graduating students. I also coordinated the EV Ecosystem Conclave, a large-scale event organized in collaboration with AIBA and PanIIT Alumni, which hosted over 450 participants. My experience in these roles has honed my leadership, data management, and event coordination skills.\nBeyond academics and professional work, I am passionate about chess and have achieved notable success in both intra-college and inter-college tournaments. I secured first place in the Freshers on Board chess tournament at IIT (BHU) and represented my institute in Spardha’23, where I placed third among 15+ colleges. Chess is more than a hobby for me—it’s a way to sharpen strategic thinking and problem-solving skills. I am also an avid reader, particularly of fantasy fiction. Exploring imaginative worlds and complex narratives is a source of inspiration and relaxation for me."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "Hi, I am a Deep Learning practitioner, currently working as a Data Scientist at Turing. I am based in Thane, Maharashtra. I am an avid fantasy fiction reader and I like playing chess. I have been practicing deep learning for almost two years now and I am excited to grow in this field!\nI am a 2025 graduate from Indian Institute of Technology (BHU), Varanasi, where I completed my Bachelor of Technology in Mechanical Engineering. This is where I first got into machine learning and deep learning, starting off with Andrew Ng’s Machine Learning Specialization course on Coursera, and eventually doing the fast.ai course: Practical Deep Learning for Coders.\nWhile at IIT Varanasi, I did a summer internship as a Data Scientist at Voiceback Analytics, where I led promotion analytics for Mumbai International Airport’s duty-free stores. I developed a pipeline to extract transactional data and trained machine learning models to identify the most effective promotions. Apart from the internship, I did various projects to cement my practical understanding. Check out some of my notable side projects here.\nI am always open to connecting and collaborating, feel free to reach out:"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "My Blogs",
+    "section": "",
+    "text": "Recipe for training neural networks\n\n\n\nDeep Learning\n\n\n\nA practical example illustrating the various techniques that are used to train neural networks\n\n\n\n\n\nThursday, June 5, 2025\n\n1 min\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Let’s get in touch!",
+    "section": "",
+    "text": "E-mail: utkarsh.avb.singh@gmail.com\nAddress: Thane, Maharastra, India"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Hi, I am Utkarsh!",
+    "section": "",
+    "text": "Currently participating in the CMI - Detect Behavior with Sensor Data kaggle code competition\n\n\n\n\n\n\n\nProjects\nSome of my more notable side projects\n\n\n\n\n\n\n\n\nEntity extraction from retail images\n\n\n\nOCR\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSkin Cancer Detection with 3D-TBP\n\n\n\nImage Classification\n\nMultimodal\n\nEnsembling\n\n\n\n\n\n\n\n\n\nNo matching items\n\n\n\nLet’s get in touch!\nI am always open to connecting and collaborating, feel free to reach out.\n\n  \n    \n       \n  \n    \n     E-mail\n  \n  \n    \n     Github\n  \n  \n    \n     Linkedin\n  \n  \n    \n     Twitter\n  \n\n      \n\n    \n  \n\n\nTo know more about me and my journey, visit the about page."
+  },
+  {
+    "objectID": "footer.html",
+    "href": "footer.html",
+    "title": "Utkarsh Singh",
+    "section": "",
+    "text": "Projects  Skin Cancer Detection Natural Language Inference\n\n\nAbout Me  My Journey My resume\n\n\nLet’s Connect  LinkedIn\nEmail\nTwitter"
+  },
+  {
+    "objectID": "projects/skin_cancer_detection/index.html",
+    "href": "projects/skin_cancer_detection/index.html",
+    "title": "Skin Cancer Detection with 3D-TBP",
+    "section": "",
+    "text": "The International Skin Imaging Collaboration (ISIC) is an international academia and industry partnership designed to reduce skin cancer morbidity and mortality through the development and use of digital skin imaging applications. Beginning in 2016, ISIC has sponsored Grand Challenges for the computer science community in association with leading computer vision conferences. Over the years, these challenges have grown in scale, complexity, and participation. The 2024 competition page."
+  },
+  {
+    "objectID": "projects/skin_cancer_detection/index.html#problem-statement",
+    "href": "projects/skin_cancer_detection/index.html#problem-statement",
+    "title": "Skin Cancer Detection with 3D-TBP",
+    "section": "Problem Statement",
+    "text": "Problem Statement\nThe task is to develop image-based algorithms to identify histologically confirmed skin cancer cases with single-lesion crops from 3D total body photos (TBP). The image quality resembles close-up smartphone photos, which are regularly submitted for telehealth purposes. The binary classification algorithm could be used in settings without access to specialized care and improve triage for early skin cancer detection."
+  },
+  {
+    "objectID": "projects/skin_cancer_detection/index.html#data",
+    "href": "projects/skin_cancer_detection/index.html#data",
+    "title": "Skin Cancer Detection with 3D-TBP",
+    "section": "Data",
+    "text": "Data\nThe dataset consists of diagnostically labelled images with additional metadata. The images are JPEGs. The associated .csv file contains a binary diagnostic label (target), potential input variables (e.g. age_approx, sex, anatom_site_general, etc.), and additional attributes (e.g. image source and precise diagnosis). In the challenge, one is to differentiate benign from malignant cases. For each image (isic_id) one is to assign the probability (target) ranging [0, 1] that the case is malignant. To download the data files, please run the following shell command:\nkaggle competitions download -c isic-2024-challenge"
+  },
+  {
+    "objectID": "projects/skin_cancer_detection/index.html#evaluation",
+    "href": "projects/skin_cancer_detection/index.html#evaluation",
+    "title": "Skin Cancer Detection with 3D-TBP",
+    "section": "Evaluation",
+    "text": "Evaluation\nSubmissions are evaluated on partial area under the ROC curve (pAUC) above 80% true positive rate (TPR) for binary classification of malignant examples. The receiver operating characteristic (ROC) curve illustrates the diagnostic ability of a given binary classifier system as its discrimination threshold is varied. However, there are regions in the ROC space where the values of TPR are unacceptable in clinical practice. Systems that aid in diagnosing cancers are required to be highly-sensitive, so this metric focuses on the area under the ROC curve AND above 80% TRP. Hence, scores range from [0.0, 0.2]."
+  },
+  {
+    "objectID": "projects/skin_cancer_detection/index.html#approach",
+    "href": "projects/skin_cancer_detection/index.html#approach",
+    "title": "Skin Cancer Detection with 3D-TBP",
+    "section": "Approach",
+    "text": "Approach\nI adopted a structured and multi-layered methodology to achieve significant performance improvements.\n\nData Pre-processing\nThe task involved tackling an imbalanced binary classification problem, where the training dataset had a class ratio of 1:1000 (positive to negative). To address this, I first undersampled the negative class and then oversampled the positive class, achieving a balanced ratio of 2:3. Additionally, I incorporated penalties in the loss function to account for the adjusted class. To enhance the dataset, I applied various image augmentation techniques and relied extensively on the fastai library for efficient data preprocessing and augmentation workflows.\n\n\nFine-tuning the Base Model\nI fine-tuned a pre-trained ResNet-18 model on the single lesion crops. I utilized StratifiedGroupKFold to ensure robust evaluation and also to generate Out-Of-Fold (OOF) predictions.\n\n\nBuilding an Ensemble System\nLeveraging the OOF predictions from the ResNet-18 image model, I integrated additional predictive layers by stacking three powerful gradient boosting models: XGBoost, CatBoost, and LightGBM. Each of these models independently processed the image features, and their outputs were combined using a soft voting ensemble. This ensemble strategy balanced the strengths of individual models, yielding a more generalized and accurate prediction system."
+  },
+  {
+    "objectID": "projects/skin_cancer_detection/index.html#result",
+    "href": "projects/skin_cancer_detection/index.html#result",
+    "title": "Skin Cancer Detection with 3D-TBP",
+    "section": "Result",
+    "text": "Result\nThe ensemble approach resulted in a significant improvement in the partial AUC-ROC score. The metric increased to 0.167, outperforming the standalone image model’s score of 0.144, thus showcasing the enhanced predictive capability of the multi-model ensemble."
+  },
+  {
+    "objectID": "projects/entity_extraction/index.html",
+    "href": "projects/entity_extraction/index.html",
+    "title": "Entity extraction from retail images",
+    "section": "",
+    "text": "This was a 3 day hack-a-thon organised by Amazon India as part of their annual Amazon ML Challenge, an inter-college team competition."
+  },
+  {
+    "objectID": "projects/entity_extraction/index.html#problem-statement",
+    "href": "projects/entity_extraction/index.html#problem-statement",
+    "title": "Entity extraction from retail images",
+    "section": "Problem Statement",
+    "text": "Problem Statement\nIn the hackathon, the goal was to create a machine learning model that extracts entity values from images. As digital marketplaces expand, many products lack detailed textual descriptions, making it essential to obtain key details directly from images. These images provide important information such as weight, volume, voltage, wattage, dimensions, and many more, which are critical for digital stores."
+  },
+  {
+    "objectID": "projects/entity_extraction/index.html#dataset",
+    "href": "projects/entity_extraction/index.html#dataset",
+    "title": "Entity extraction from retail images",
+    "section": "Dataset",
+    "text": "Dataset\nThe dataset consists of the following columns:\n\nindex: An unique identifier (ID) for the data sample\nimage_link: Public URL where the product image is available for download. Example link. To download images use download_images function from src/utils.py. See sample code in src/test.ipynb.\ngroup_id: Category code of the product\nentity_name: Product entity name. For eg: “item_weight”\nentity_value: Product entity value. For eg: “34 gram”. Note: For test.csv, you will not see the column entity_value as it is the target variable."
+  },
+  {
+    "objectID": "projects/entity_extraction/index.html#file-description",
+    "href": "projects/entity_extraction/index.html#file-description",
+    "title": "Entity extraction from retail images",
+    "section": "File description",
+    "text": "File description\nthe src and dataset folders are provided by the organisers\n\nsource files\n\nsrc/sanity.py: Sanity checker to ensure that the final output file passes all formatting checks. Note: the script will not check if less/more number of predictions are present compared to the test file. See sample code in src/test.ipynb\nsrc/utils.py: Contains helper functions for downloading images from the image_link.\nsrc/constants.py: Contains the allowed units for each entity type.\nsrc/sample_code.py: We also provided a sample dummy code that can generate an output file in the given format. Usage of this file is optional.\n\n\n\ndataset files\n\ndataset/train.csv: Training file with labels (entity_value).\ndataset/test.csv: Test file without output labels (entity_value). Generate predictions using your model/solution on this file’s data and format the output file to match sample_test_out.csv (Refer the above section “Output Format”)\ndataset/sample_test.csv: Sample test input file.\ndataset/sample_test_out.csv: Sample outputs for sample_test.csv. The output for test.csv must be formatted in the exact same way. Note: The predictions in the file might not be correct\n\n\n\nsolution file\n\nocr_regex.ipynb: Solution notebook detailing our approach."
+  },
+  {
+    "objectID": "projects/entity_extraction/index.html#evaluation-criteria",
+    "href": "projects/entity_extraction/index.html#evaluation-criteria",
+    "title": "Entity extraction from retail images",
+    "section": "Evaluation Criteria",
+    "text": "Evaluation Criteria\nSubmissions will be evaluated based on F1 score\nLet GT = Ground truth value for a sample and OUT be output prediction from the model for a sample. Then we classify the predictions into one of the 4 classes with the following logic: 1. True Positives - If OUT != “” and GT != “” and OUT == GT 2. False Positives - If OUT != “” and GT != “” and OUT != GT 3. False Positives - If OUT != “” and GT == “” 4. False Negatives - If OUT == “” and GT != “” 5. True Negatives - If OUT == “” and GT == “”\nThen, F1 score = 2(Precision)(Recall)/(Precision + Recall) where: - Precision = True Positives/(True Positives + False Positives) - Recall = True Positives/(True Positives + False Negatives)"
+  },
+  {
+    "objectID": "projects/entity_extraction/index.html#approach",
+    "href": "projects/entity_extraction/index.html#approach",
+    "title": "Entity extraction from retail images",
+    "section": "Approach",
+    "text": "Approach\n\nDesigning the OCR Pipeline\nI created a robust OCR pipeline to automate key steps in image processing and text extraction. This included tasks such as image loading, grayscaling, and binarization to enhance text visibility and clarity. These preprocessed images were then passed through EasyOCR, to accurately extract text.\n\n\nEntity Parsing and Extraction\nTo transform raw OCR output into actionable data, I utilized regular expression matching. This approach allowed me to efficiently parse the extracted text and identify specific entities of interest. By tailoring the parsing logic to the dataset’s structure, I ensured reliable extraction of key information."
+  },
+  {
+    "objectID": "projects/entity_extraction/index.html#result",
+    "href": "projects/entity_extraction/index.html#result",
+    "title": "Entity extraction from retail images",
+    "section": "Result",
+    "text": "Result\nThe outlined approach earned us a spot in the top 500 rankings on a highly competitive national leaderboard, which featured over 75,000 participants."
+  },
+  {
+    "objectID": "blogs/training-nns.html",
+    "href": "blogs/training-nns.html",
+    "title": "Recipe for training neural networks",
+    "section": "",
+    "text": "Some few weeks ago I posted a tweet on “the most common neural net mistakes”, listing a few common gotchas related to training neural nets. The tweet got quite a bit more engagement than I anticipated (including a webinar :)). Clearly, a lot of people have personally encountered the large gap between “here is how a convolutional layer works” and “our convnet achieves state of the art results”."
+  }
+]

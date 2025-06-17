@@ -1,0 +1,10 @@
+---
+title: "My Blogs"
+listing: 
+  contents: blogs
+  type: default
+  sort: "date desc"
+  categories: true
+  fields: [image, title, date, categories, description, reading-time]
+  date-format: full
+---

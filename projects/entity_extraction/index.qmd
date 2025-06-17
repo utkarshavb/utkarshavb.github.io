@@ -1,0 +1,63 @@
+---
+title: "Entity extraction from retail images"
+subtitle: Applied machine learning models to extract precise product information directly from retail images
+categories: [OCR]
+draft: false
+---
+
+This was a 3 day hack-a-thon organised by Amazon India as part of their annual Amazon ML Challenge, an inter-college team competition.
+
+## Problem Statement
+In the hackathon, the goal was to create a machine learning model that extracts entity values from images. As digital marketplaces expand, many products lack detailed textual descriptions, making it essential to obtain key details directly from images. These images provide important information such as weight, volume, voltage, wattage, dimensions, and many more, which are critical for digital stores.
+
+## Dataset
+The dataset consists of the following columns:
+
+- index: An unique identifier (ID) for the data sample
+- image_link: Public URL where the product image is available for download. [Example link.](https://m.media-amazon.com/images/I/71XfHPR36-L.jpg) To download images use download_images function from `src/utils.py`. See sample code in `src/test.ipynb`.
+- group_id: Category code of the product
+- entity_name: Product entity name. For eg: “item_weight”
+- entity_value: Product entity value. For eg: “34 gram”.
+Note: For test.csv, you will not see the column `entity_value` as it is the target variable.
+
+## File description
+the src and dataset folders are provided by the organisers
+
+#### source files
+- src/sanity.py: Sanity checker to ensure that the final output file passes all formatting checks. Note: the script will not check if less/more number of predictions are present compared to the test file. See sample code in `src/test.ipynb`
+- src/utils.py: Contains helper functions for downloading images from the image_link.
+- src/constants.py: Contains the allowed units for each entity type.
+- src/sample_code.py: We also provided a sample dummy code that can generate an output file in the given format. Usage of this file is optional.
+
+#### dataset files
+- dataset/train.csv: Training file with labels (`entity_value`).
+- dataset/test.csv: Test file without output labels (`entity_value`). Generate predictions using your model/solution on this file's data and format the output file to match sample_test_out.csv (Refer the above section "Output Format")
+- dataset/sample_test.csv: Sample test input file.
+- dataset/sample_test_out.csv: Sample outputs for sample_test.csv. The output for test.csv must be formatted in the exact same way. Note: The predictions in the file might not be correct
+
+#### solution file
+- ocr_regex.ipynb: Solution notebook detailing our approach.
+
+## Evaluation Criteria
+Submissions will be evaluated based on F1 score
+
+Let GT = Ground truth value for a sample and OUT be output prediction from the model for a sample. Then we classify the predictions into one of the 4 classes with the following logic:
+1. True Positives - If OUT != "" and GT != "" and OUT == GT
+2. False Positives - If OUT != "" and GT != "" and OUT != GT
+3. False Positives - If OUT != "" and GT == ""
+4. False Negatives - If OUT == "" and GT != ""
+5. True Negatives - If OUT == "" and GT == ""
+
+Then, F1 score = 2(Precision)(Recall)/(Precision + Recall) where:
+- Precision = True Positives/(True Positives + False Positives)
+- Recall = True Positives/(True Positives + False Negatives)
+
+## Approach
+#### Designing the OCR Pipeline
+I created a robust OCR pipeline to automate key steps in image processing and text extraction. This included tasks such as image loading, grayscaling, and binarization to enhance text visibility and clarity. These preprocessed images were then passed through EasyOCR, to accurately extract text.
+
+#### Entity Parsing and Extraction
+To transform raw OCR output into actionable data, I utilized regular expression matching. This approach allowed me to efficiently parse the extracted text and identify specific entities of interest. By tailoring the parsing logic to the dataset's structure, I ensured reliable extraction of key information.
+
+## Result
+The outlined approach earned us a spot in the top **500** rankings on a highly competitive national leaderboard, which featured over **75,000 participants.**
