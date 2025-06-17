@@ -1,17 +1,7 @@
 [
   {
-    "listing": "/pages/blog.html",
-    "items": []
-  },
-  {
-    "listing": "/p/blog.html",
-    "items": []
-  },
-  {
     "listing": "/blog.html",
-    "items": [
-      "/blogs/training-nns.html"
-    ]
+    "items": []
   },
   {
     "listing": "/index.html",
