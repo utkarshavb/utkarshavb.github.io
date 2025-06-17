@@ -1,9 +1,11 @@
 ---
 title: "Entity extraction from retail images"
-subtitle: Applied machine learning models to extract precise product information directly from retail images
-categories: [OCR]
-draft: false
+categories: [Optical Character Recognition, Regex Matching]
+description: Applied machine learning models to extract precise product information directly from retail images
+image: amlc-thumbnail.jpg
 ---
+
+[{{< fa brands github >}} Source Code](https://github.com/utkarshavb/Entity-Extraction-from-Retail-Images){.btn target=_blank} [{{< fa solid laptop-code >}} Competition page](https://unstop.com/hackathons/amazon-ml-challenge-amazon-1100713){.btn target=_blank}
 
 This was a 3 day hack-a-thon organised by Amazon India as part of their annual Amazon ML Challenge, an inter-college team competition.
 
@@ -42,6 +44,7 @@ the src and dataset folders are provided by the organisers
 Submissions will be evaluated based on F1 score
 
 Let GT = Ground truth value for a sample and OUT be output prediction from the model for a sample. Then we classify the predictions into one of the 4 classes with the following logic:
+
 1. True Positives - If OUT != "" and GT != "" and OUT == GT
 2. False Positives - If OUT != "" and GT != "" and OUT != GT
 3. False Positives - If OUT != "" and GT == ""

@@ -1,33 +1,17 @@
 ---
 title: "Hi, I am Utkarsh!"
-subtitle: "Deep Learning practitioner, I like to train neural networks :)"
+subtitle: "A Deep Learning practitioner, I like to train neural networks :)"
 title-block-banner: true
 
 listing:
   id: projects
   contents: projects
   type: grid
+  grid-columns: 3
   max-description-length: 150
   fields: [image, title, categories, description]
   sort-ui: false
   filter-ui: false
-
-about:
-  id: contact
-  template: solana
-  links:
-    - href: mailto::utkarsh.avb.singh@gmail.com
-      icon: "envelope-fill"
-      text: E-mail
-    - href: https://github.com/utkarshavb
-      icon: "github"
-      text: Github
-    - href: https://linkedin.com/in/utkarsh-avb-singh
-      icon: "linkedin"
-      text: Linkedin
-    - href: https://x.com/utkarshavb
-      icon: "twitter"
-      text: Twitter
 ---
 ::: {.callout-tip appearance=simple}
 ## Currently participating in the [CMI - Detect Behavior with Sensor Data](https://www.kaggle.com/competitions/cmi-detect-behavior-with-sensor-data) kaggle code competition
@@ -43,6 +27,8 @@ Some of my more notable side projects
 # Let's get in touch!
 I am always open to connecting and collaborating, feel free to reach out.
 
-::: {#contact}
-:::
+[{{< fa solid envelope >}} E-mail](mailto::utkarsh.avb.singh@gmail.com){.btn target=_blank} [{{< fa brands github >}} Github](https://github.com/utkarshavb){.btn target=_blank} [{{< fa brands linkedin >}} Linkedin](https://linkedin.com/in/utkarsh-avb-singh){.btn target=_blank}  [{{< fa brands twitter >}} Twitter](https://x.com/utkarshavb){.btn target=_blank}
+
+<br>
+
 To know more about me and my journey, visit the [about page](about.qmd).

@@ -3,26 +3,14 @@ title: About Me
 page-layout: article
 about:
   template: marquee
-  image: assets/display_picture.jpg
-  links:
-    - href: mailto::utkarsh.avb.singh@gmail.com
-      icon: "envelope-fill"
-      text: E-mail
-    - href: https://github.com/utkarshavb
-      icon: "github"
-      text: Github
-    - href: https://linkedin.com/in/utkarsh-avb-singh
-      icon: "linkedin"
-      text: Linkedin
-    - href: https://x.com/utkarshavb
-      icon: "twitter"
-      text: Twitter
+  image: assets/display_picture_crop.jpg
 ---
-
 Hi, I am a Deep Learning practitioner, currently working as a Data Scientist at [Turing](https://www.turing.com/). I am based in Thane, Maharashtra. I am an avid fantasy fiction reader and I like playing chess. I have been practicing deep learning for almost two years now and I am excited to grow in this field!
 
-I am a 2025 graduate from Indian Institute of Technology (BHU), Varanasi, where I completed my Bachelor of Technology in Mechanical Engineering. This is where I first got into machine learning and deep learning, starting off with Andrew Ng's [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning-introduction) course on Coursera, and eventually doing the fast.ai course: [Practical Deep Learning for Coders](https://course.fast.ai).
+I am a 2025 graduate from Indian Institute of Technology (BHU), Varanasi, where I completed my B.Tech in Mechanical Engineering. This is where I first got into machine learning and deep learning, starting off with Andrew Ng's [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning-introduction) course on Coursera, and eventually doing the fast.ai course: [Practical Deep Learning for Coders](https://course.fast.ai).
 
 While at IIT Varanasi, I did a summer internship as a Data Scientist at [Voiceback Analytics](https://voicebackanalytics.com/), where I led promotion analytics for Mumbai International Airport’s duty-free stores. I developed a pipeline to extract transactional data and trained machine learning models to identify the most effective promotions. Apart from the internship, I did various projects to cement my practical understanding. Check out some of my notable side projects [here](index.qmd).
 
 I am always open to connecting and collaborating, feel free to reach out:
+
+[{{< fa solid envelope >}} E-mail](mailto::utkarsh.avb.singh@gmail.com){.btn target=_blank} [{{< fa brands github >}} Github](https://github.com/utkarshavb){.btn target=_blank} [{{< fa brands linkedin >}} Linkedin](https://linkedin.com/in/utkarsh-avb-singh){.btn target=_blank}  [{{< fa brands twitter >}} Twitter](https://x.com/utkarshavb){.btn target=_blank}

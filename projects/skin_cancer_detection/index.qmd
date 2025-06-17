@@ -1,12 +1,12 @@
 ---
 title: "Skin Cancer Detection with 3D-TBP"
-subtitle: Identified cancers among skin lesions cropped from 3D total body photographs along with metadata
 categories: [Image Classification, Multimodal, Ensembling]
+description: Identified cancers among skin lesions cropped from 3D total body photographs along with metadata
 image: 3D-TBP.png
-draft: false
 ---
+[{{< fa brands github >}} Source Code](https://github.com/utkarshavb/Skin-Cancer-Detection-ISIC-Challenge-2024){.btn target=_blank} [{{< fa brands kaggle >}} Competition page](https://www.kaggle.com/competitions/isic-2024-challenge){.btn target=_blank}
 
-The International Skin Imaging Collaboration (ISIC) is an international academia and industry partnership designed to reduce skin cancer morbidity and mortality through the development and use of digital skin imaging applications. Beginning in 2016, ISIC has sponsored Grand Challenges for the computer science community in association with leading computer vision conferences. Over the years, these challenges have grown in scale, complexity, and participation. [The 2024 competition page.](https://www.kaggle.com/competitions/isic-2024-challenge)
+The International Skin Imaging Collaboration (ISIC) is an international academia and industry partnership designed to reduce skin cancer morbidity and mortality through the development and use of digital skin imaging applications. Beginning in 2016, ISIC has sponsored Grand Challenges for the computer science community in association with leading computer vision conferences. Over the years, these challenges have grown in scale, complexity, and participation.
 
 ## Problem Statement
 The task is to develop image-based algorithms to identify histologically confirmed skin cancer cases with single-lesion crops from 3D total body photos (TBP). The image quality resembles close-up smartphone photos, which are regularly submitted for telehealth purposes. The binary classification algorithm could be used in settings without access to specialized care and improve triage for early skin cancer detection.
