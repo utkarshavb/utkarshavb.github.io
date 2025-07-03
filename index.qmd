@@ -27,7 +27,7 @@ Some of my more notable side projects
 # Let's get in touch!
 I am always open to connecting and collaborating, feel free to reach out.
 
-[{{< fa solid envelope >}} E-mail](mailto::utkarsh.avb.singh@gmail.com){.btn target=_blank} [{{< fa brands github >}} Github](https://github.com/utkarshavb){.btn target=_blank} [{{< fa brands linkedin >}} Linkedin](https://linkedin.com/in/utkarsh-avb-singh){.btn target=_blank}  [{{< fa brands twitter >}} Twitter](https://x.com/utkarshavb){.btn target=_blank}
+[{{< fa solid envelope >}} E-mail](mailto::utkarsh.avb.singh@gmail.com){.btn target=_blank} [{{< fa brands github >}} Github](https://github.com/utkarshavb){.btn target=_blank} [{{< fa brands linkedin >}} Linkedin](https://linkedin.com/in/utkarshavb){.btn target=_blank}  [{{< fa brands twitter >}} Twitter](https://x.com/utkarshavb){.btn target=_blank}
 
 <br>
 
